@@ -1,0 +1,323 @@
+        /* Styles spécifiques à la page Mission */
+        .mission-main {
+            max-width: 90%;
+            padding: 3rem 1rem;
+            margin-left: 6%;
+        }
+
+        .mission-title {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1rem;
+            margin-top: 12rem;
+            justify-content: center;
+        }
+
+        .mission-subtitle {
+            font-size: 1rem;
+            color: #6B7280;
+            text-align: center;
+            max-width: 48rem;
+            margin: 0 auto 3rem;
+        }
+
+        .mission-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-container {
+            position: relative;
+            flex-grow: 1;
+            max-width: 400px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            background-color: #1f2937;
+            color: white;
+            border: 1px solid #374151;
+        }
+
+        .filter-container {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background-color: #1f2937;
+            color: white;
+            border: 1px solid #374151;
+        }
+
+        .tab-container {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #374151;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab.active {
+            border-bottom: 2px solid #15ff00;
+            color: #15ff00;
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .mission-card {
+            background-color: #1f2937;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-0.25rem);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        .mission-card-image {
+            width: 100%;
+            height: 12rem;
+            object-fit: cover;
+        }
+
+        .mission-card-content {
+            padding: 1.5rem;
+        }
+
+        .mission-card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin: 0.5rem 0 0.75rem;
+            color: white;
+        }
+
+        .mission-card-agency {
+            display: inline-block;
+            background-color: #374151;
+            color: #15ff00;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .mission-card-objective {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .mission-card-date {
+            color: #6b7280;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .mission-card-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mission-card-link {
+            display: inline-flex;
+            align-items: center;
+            color: #15ff00;
+            font-weight: 600;
+            text-decoration: none;
+            transition: text-decoration 0.2s;
+        }
+
+        .mission-card-link:hover {
+            text-decoration: underline;
+        }
+
+        .favorite-btn {
+            background: none;
+            border: none;
+            color: #6b7280;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: color 0.2s;
+        }
+
+        .favorite-btn.active {
+            color: #ef4444;
+        }
+
+        .no-missions {
+            text-align: center;
+            padding: 3rem;
+            color: #6b7280;
+        }
+
+        .add-mission-btn {
+            background-color: #15ff00;
+            color: #0f172a;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-mission-btn:hover {
+            background-color: #13e600;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #1f2937;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: #6b7280;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.25rem;
+            background-color: #374151;
+            color: white;
+            border: 1px solid #4b5563;
+        }
+
+        .form-input.error {
+            border-color: #ef4444;
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #15ff00;
+            color: #0f172a;
+        }
+
+        .btn-primary:hover {
+            background-color: #13e600;
+        }
+
+        .btn-secondary {
+            background-color: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #4b5563;
+        }
+
+        .btn-danger {
+            background-color: #ef4444;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+
+        /* Responsive styles */
+        @media (min-width: 768px) {
+            .mission-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .mission-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .mission-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
