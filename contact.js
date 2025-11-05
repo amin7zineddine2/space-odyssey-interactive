@@ -1,21 +1,3 @@
-// toggle
-const hamburger = document.querySelector(".hamburger");
-const sidebar = document.querySelector(".sidebar");
-const closeBtn = document.querySelector(".close-btn");
-
-// Open sidebar
-hamburger.addEventListener("click", () => {
-  hamburger.classList.toggle("active");
-  sidebar.classList.add("active");
-});
-
-// Close sidebar
-closeBtn.addEventListener("click", () => {
-  hamburger.classList.remove("active");
-  sidebar.classList.remove("active");
-});
-
-// form validation
 
 const form = document.getElementById("Form");
 const sendButton = document.querySelector(".send-button");
