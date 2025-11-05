@@ -321,3 +321,174 @@
                 grid-template-columns: repeat(3, 1fr);
             }
         }
+
+.floating-favorites-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #15ff00;
+    color: white;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.floating-favorites-btn:hover {
+    background-color: #272727;
+    color: #15ff00;
+    transform: scale(1.05);
+}
+
+.floating-favorites-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.favorites-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ef4444;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Sidebar des favoris */
+.favorites-sidebar {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 380px;
+    height: 100vh;
+    background-color: #1e293b;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    transition: right 0.3s ease;
+    overflow-y: auto;
+}
+
+.favorites-sidebar.open {
+    right: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #374151;
+}
+
+.sidebar-header h3 {
+    color: white;
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.close-sidebar {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.close-sidebar:hover {
+    background-color: #374151;
+}
+
+.close-sidebar svg {
+    width: 20px;
+    height: 20px;
+}
+
+.sidebar-content {
+    padding: 20px;
+}
+
+.no-favorites-message {
+    color: #9ca3af;
+    text-align: center;
+    font-style: italic;
+}
+
+/* Carte de mission dans la sidebar */
+.favorite-mission-card {
+    background-color: #374151;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: background-color 0.2s;
+}
+
+.favorite-mission-card:hover {
+    background-color: #4b5563;
+}
+
+.favorite-mission-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.favorite-mission-info {
+    flex: 1;
+}
+
+.favorite-mission-title {
+    color: white;
+    margin: 0 0 5px 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.favorite-mission-agency {
+    color: #    ;
+    margin: 0 0 5px 0;
+    font-size: 0.875rem;
+}
+
+.favorite-mission-date {
+    color: #9ca3af;
+    margin: 0;
+    font-size: 0.75rem;
+}
+
+.remove-favorite-btn {
+    background: none;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.remove-favorite-btn:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+.remove-favorite-btn svg {
+    width: 16px;
+    height: 16px;
+}

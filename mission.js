@@ -1,166 +1,133 @@
 let missions = [
     {
-        id: 1,
-        name: "Apollo 11",
-        agency: "NASA",
-        objective: "Premier alunissage habité",
-        launchDate: "1969-07-16",
-        image: "images/apollo11.jpg"
+        "id": 1,
+        "name": "Artemis II",
+        "agency": "NASA",
+        "objective": "Four astronauts will venture around the Moon on Artemis II, the first crewed mission on NASA's path to establishing a long-term presence at the Moon for science and exploration.",
+        "launchDate": "2026-02-05",
+        "image": "./images/ArtemisII.png"
     },
     {
-        id: 2,
-        name: "Voyager 1",
-        agency: "NASA",
-        objective: "Exploration du système solaire externe",
-        launchDate: "1977-09-05",
-        image: "images/voyager1.jpg"
+        "id": 2,
+        "name": "Commercial Crew",
+        "agency": "NASA",
+        "objective": "NASA's Commercial Crew Program is delivering on its goal of safe, reliable, and cost-effective human transportation to and from the International Space Station.",
+        "launchDate": "2020-11-16",
+        "image": "./images/Commercial-Crew.png"
     },
     {
-        id: 3,
-        name: "Rosetta",
-        agency: "ESA",
-        objective: "Étude de la comète 67P/Churyumov-Gerasimenko",
-        launchDate: "2004-03-02",
-        image: "images/rosetta.jpg"
+        "id": 3,
+        "name": "Hubble Space Telescope",
+        "agency": "NASA",
+        "objective": "Since its 1990 launch, the Hubble Space Telescope has changed our fundamental understanding of the universe.",
+        "launchDate": "1990-04-24",
+        "image": "./images/Hubble-Space-Telescope.png"
     },
     {
-        id: 4,
-        name: "Curiosity",
-        agency: "NASA",
-        objective: "Exploration du cratère Gale sur Mars",
-        launchDate: "2011-11-26",
-        image: "images/curiosity.jpg"
+        "id": 4,
+        "name": "James Webb Space Telescope",
+        "agency": "NASA",
+        "objective": "Webb is the premier observatory of the next decade, serving thousands of astronomers worldwide. It studies every phase in the history of our Universe.",
+        "launchDate": "2021-12-25",
+        "image": "./images/James-Webb-Space-Telescope.png"
     },
     {
-        id: 5,
-        name: "Artemis I",
-        agency: "NASA",
-        objective: "Test du système de lancement SLS et d'Orion",
-        launchDate: "2022-11-16",
-        image: "images/artemis1.jpg"
+        "id": 5,
+        "name": "Juno: Mission At Jupiter",
+        "agency": "NASA",
+        "objective": "Probing beneath Jupiter's dense clouds to answer questions about the origin and evolution of Jupiter, our solar system, and giant planets across the cosmos.",
+        "launchDate": "2011-08-05",
+        "image": "./images/Juno-Mission-At-Jupiter.png"
     },
     {
-        id: 6,
-        name: "James Webb Space Telescope",
-        agency: "NASA/ESA/CSA",
-        objective: "Observation de l'univers primitif",
-        launchDate: "2021-12-25",
-        image: "images/jwst.jpg"
+        "id": 6,
+        "name": "International Space Station",
+        "agency": "NASA",
+        "objective": "The International Space Station Program brings together international flight crews, multiple launch vehicles, the international scientific research community and much more.",
+        "launchDate": "1998-11-20",
+        "image": "./images/International-Space-Station.png"
     },
     {
-        id: 7,
-        name: "BepiColombo",
-        agency: "ESA/JAXA",
-        objective: "Exploration de la planète Mercure",
-        launchDate: "2018-10-20",
-        image: "images/bepicolombo.jpg"
+        "id": 7,
+        "name": "Perseverance Mars Rover",
+        "agency": "NASA",
+        "objective": "This rover and its aerial sidekick were assigned to study the geology of Mars and much more.",
+        "launchDate": "2020-07-30",
+        "image": "./images/Perseverance-rover.png"
+    },
+    {
+        "id": 8,
+        "name": "Parker Solar Probe",
+        "agency": "NASA",
+        "objective": "On a mission to 'touch the Sun,' NASA's Parker Solar Probe became the first spacecraft to fly through the corona – the Sun's upper atmosphere.",
+        "launchDate": "2018-08-12",
+        "image": "./images/Parker-Solar-Probe.png"
+    },
+    {
+        "id": 9,
+        "name": "Quesst",
+        "agency": "NASA",
+        "objective": "NASA's mission to demonstrate how the X-59 can fly supersonic without generating loud sonic booms.",
+        "launchDate": "2020-11-16",
+        "image": "./images/Quesst.png"
+    },
+    {
+        "id": 10,
+        "name": "JUICE",
+        "agency": "ESA",
+        "objective": "JUICE launched on April 14, 2023, to study Jupiter's icy moons—Ganymede, Callisto, and Europa—for potential signs of oceans and life.",
+        "launchDate": "2023-04-14",
+        "image": "./images/juice.png"
     }
 ];
 
-// Variables globales
 let favorites = JSON.parse(localStorage.getItem('all-fav')) || [];
 let myMissions = JSON.parse(localStorage.getItem('myMissions')) || [];
-let currentTab = 'kolchi';
 let currentEditId = null;
 
-// Initialisation
-document.addEventListener('DOMContentLoaded', function () {
-// window.addEventListener('load', function () {
-    // initializeApp();
+// Événement de chargement de la page
+window.addEventListener('load', function () {
     Filtrage();
-    renderMissions();
-    populateYearFilter();
+    AfficherMissions();
+    YearFilter();
+    initFav();
+    favCount();
 });
 
-// Initialisation de l'application
-// function initializeApp() {
-//     // Utiliser des images de remplacement si les images originales ne sont pas disponibles
-//     missions.forEach(mission => {
-//         if (!mission.image || mission.image.startsWith('images/')) {
-//             mission.image = getPlaceholderImage(mission.name);
-//         }
-//     });
-// }
-
-// Configuration des écouteurs d'événements
-
-
-// function Filtrage() {
-
-//     document.getElementById('missionSearch').addEventListener('input', filterMissions);
-//     document.getElementById('agencyFilter').addEventListener('change', filterMissions);
-//     document.getElementById('yearFilter').addEventListener('change', filterMissions);
-
-    
-//     // document.querySelectorAll('.tab').forEach(tab => {
-//     //     tab.addEventListener('click', function () {
-//     //         switchTab(this.dataset.tab);
-//     //     });
-//     // });
-
-//     // Bouton d'ajout de mission
-   
-//     document.querySelectorAll('.tab').forEach((tab, index) => {
-//         tab.addEventListener('click', function() {
-//             const tabNames = ['all', 'favorites', 'notreMission'];
-//             switchTab(tabNames[index]);
-//         });
-//     });
-
-//     document.getElementById('ajout').addEventListener('click', openAddModal);
-
-//     // Modal
-//     document.getElementById('closeModal').addEventListener('click', closeModal);
-//     document.getElementById('cancelBtn').addEventListener('click', closeModal);
-//     document.getElementById('missionForm').addEventListener('submit', saveMission);
-
-//     // Fermer le modal en cliquant à l'extérieur
-//     document.getElementById('missionModal').addEventListener('click', function (e) {
-//         if (e.target === this) {
-//             closeModal();
-//         }
-//     });
-// }
-
 function Filtrage() {
-
     document.getElementById('missionSearch').addEventListener('input', filterMissions);
     document.getElementById('agencyFilter').addEventListener('change', filterMissions);
     document.getElementById('yearFilter').addEventListener('change', filterMissions);
 
-    
-    document.querySelectorAll('.tab')[0].addEventListener('click', () => switchTab('kolchi'));
-    document.querySelectorAll('.tab')[1].addEventListener('click', () => switchTab('fav'));
-    document.querySelectorAll('.tab')[2].addEventListener('click', () => switchTab('notreMission'));
-
-    
     document.getElementById('ajout').addEventListener('click', openAddModal);
-
-   
     document.getElementById('closeModal').addEventListener('click', closeModal);
     document.getElementById('cancelBtn').addEventListener('click', closeModal);
     document.getElementById('missionForm').addEventListener('submit', saveMission);
 }
 
-// Rendu des missions
-function renderMissions(filteredMissions = null) {
+function AfficherMissions(MissionFiltrer = null) {
     const missionGrid = document.getElementById('missionGrid');
-    const noMissions = document.getElementById('noMissions');
+    const Missions_vide = document.getElementById('Missions_vide');
 
-    let missionsToRender = filteredMissions || getCurrentMissions();
+    // TOUTES les missions sont affichées ensemble
+    let missionsToAficher = [...missions, ...myMissions];
 
-    if (missionsToRender.length === 0) {
+    // Appliquer les filtres si fournis
+    if (MissionFiltrer) {
+        missionsToAficher = MissionFiltrer;
+    }
+
+    if (missionsToAficher.length === 0) {
         missionGrid.style.display = 'none';
-        noMissions.style.display = 'block';
+        Missions_vide.style.display = 'block';
         return;
     }
 
     missionGrid.style.display = 'grid';
-    noMissions.style.display = 'none';
-
+    Missions_vide.style.display = 'none';
     missionGrid.innerHTML = '';
 
-    missionsToRender.forEach(mission => {
+    missionsToAficher.forEach(mission => {
         const missionCard = createMissionCard(mission);
         missionGrid.appendChild(missionCard);
     });
@@ -173,7 +140,8 @@ function createMissionCard(mission) {
     card.dataset.id = mission.id;
 
     const isFavorite = favorites.includes(mission.id);
-    const isMyMission = myMissions.some(m => m.id === mission.id);
+    // Toutes les missions peuvent être modifiées/supprimées
+    const isEditable = true;
 
     const launchDate = new Date(mission.launchDate);
     const formattedDate = launchDate.toLocaleDateString('fr-FR', {
@@ -183,73 +151,41 @@ function createMissionCard(mission) {
     });
 
     card.innerHTML = `
-                <img class="mission-card-image" src="${mission.image}" alt="${mission.name}">
-                <div class="mission-card-content">
-                    <div class="mission-card-agency">${mission.agency}</div>
-                    <h3 class="mission-card-title">${mission.name}</h3>
-                    <p class="mission-card-objective">${mission.objective}</p>
-                    <p class="mission-card-date">Lancé le ${formattedDate}</p>
-                    <div class="mission-card-actions">
-                        <a class="mission-card-link" href="#">En savoir plus</a>
-                        <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${mission.id}">
-                            ${isFavorite ? '❤️' : '🤍'}
-                        </button>
-                    </div>
-                    ${isMyMission ? `
-                        <div class="mission-card-actions" style="margin-top: 1rem;">
-                            <button class="btn btn-secondary edit-mission" data-id="${mission.id}">Modifier</button>
-                            <button class="btn btn-danger delete-mission" data-id="${mission.id}">Supprimer</button>
-                        </div>
-                    ` : ''}
-                </div>
-            `;
+        <img class="mission-card-image" src="${mission.image}" alt="${mission.name}">
+        <div class="mission-card-content">
+            <div class="mission-card-agency">${mission.agency}</div>
+            <h3 class="mission-card-title">${mission.name}</h3>
+            <p class="mission-card-objective">${mission.objective}</p>
+            <p class="mission-card-date">Lancé le ${formattedDate}</p>
+            <div class="mission-card-actions">
+                <a class="mission-card-link" href="#">En savoir plus</a>
+                <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${mission.id}">
+                    ${isFavorite ? '❤️' : '🤍'}
+                </button>
+            </div>
+            <div class="mission-card-actions" style="margin-top: 1rem;">
+                <button class="btn btn-secondary edit-mission" data-id="${mission.id}">Modifier</button>
+                <button class="btn btn-danger delete-mission" data-id="${mission.id}">Supprimer</button>
+            </div>
+        </div>
+    `;
 
     // Ajouter les écouteurs d'événements
     const favoriteBtn = card.querySelector('.favorite-btn');
     favoriteBtn.addEventListener('click', toggleFavorite);
 
-    if (isMyMission) {
-        const editBtn = card.querySelector('.edit-mission');
-        const deleteBtn = card.querySelector('.delete-mission');
+    const editBtn = card.querySelector('.edit-mission');
+    const deleteBtn = card.querySelector('.delete-mission');
 
-        editBtn.addEventListener('click', function () {
-            openEditModal(mission.id);
-        });
+    editBtn.addEventListener('click', function () {
+        openEditModal(mission.id);
+    });
 
-        deleteBtn.addEventListener('click', function () {
-            deleteMission(mission.id);
-        });
-    }
+    deleteBtn.addEventListener('click', function () {
+        deleteMission(mission.id);
+    });
 
     return card;
-}
-
-// Obtenir les missions actuelles selon l'onglet actif
-function getCurrentMissions() {
-    switch (currentTab) {
-        case 'fav':
-            return missions.filter(mission => favorites.includes(mission.id));
-        case 'notreMission':
-            return myMissions;
-        default:
-            return missions;
-    }
-}
-
-
-function switchTab(tabName) {
-    currentTab = tabName;
-    
-    // Mettre à jour l'interface
-    document.querySelectorAll('.tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
-    
-    if (tabName === 'kolchi') document.querySelectorAll('.tab')[0].classList.add('active');
-    if (tabName === 'fav') document.querySelectorAll('.tab')[1].classList.add('active');
-    if (tabName === 'notreMission') document.querySelectorAll('.tab')[2].classList.add('active');
-    
-    renderMissions();
 }
 
 // Filtrer les missions
@@ -258,11 +194,11 @@ function filterMissions() {
     const agencyFilter = document.getElementById('agencyFilter').value;
     const yearFilter = document.getElementById('yearFilter').value;
 
-    let filteredMissions = getCurrentMissions();
+    let MissionFiltrer = [...missions, ...myMissions];
 
     // Filtrer par recherche
     if (barRecherche) {
-        filteredMissions = filteredMissions.filter(mission =>
+        MissionFiltrer = MissionFiltrer.filter(mission =>
             mission.name.toLowerCase().includes(barRecherche) ||
             mission.agency.toLowerCase().includes(barRecherche) ||
             mission.objective.toLowerCase().includes(barRecherche)
@@ -271,20 +207,20 @@ function filterMissions() {
 
     // Filtrer par agence
     if (agencyFilter) {
-        filteredMissions = filteredMissions.filter(mission =>
+        MissionFiltrer = MissionFiltrer.filter(mission =>
             mission.agency.includes(agencyFilter)
         );
     }
 
     // Filtrer par année
     if (yearFilter) {
-        filteredMissions = filteredMissions.filter(mission => {
+        MissionFiltrer = MissionFiltrer.filter(mission => {
             const missionYear = new Date(mission.launchDate).getFullYear().toString();
             return missionYear === yearFilter;
         });
     }
 
-    renderMissions(filteredMissions);
+    AfficherMissions(MissionFiltrer);
 }
 
 // Basculer le statut favori
@@ -305,10 +241,9 @@ function toggleFavorite(e) {
     // Sauvegarder dans le localStorage
     localStorage.setItem('all-fav', JSON.stringify(favorites));
 
-    // Si on est dans l'onglet favoris, re-rendre
-    if (currentTab === 'fav') {
-        renderMissions();
-    }
+    // Mettre à jour le compteur et la sidebar
+    favCount();
+    updateFav();
 }
 
 // Ouvrir le modal d'ajout
@@ -316,7 +251,6 @@ function openAddModal() {
     document.getElementById('modalTitle').textContent = 'Ajouter une mission';
     document.getElementById('missionForm').reset();
     document.getElementById('missionId').value = '';
-    currentEditId = null;
 
     // Réinitialiser les erreurs
     document.querySelectorAll('.error-message').forEach(error => {
@@ -331,7 +265,12 @@ function openAddModal() {
 
 // Ouvrir le modal d'édition
 function openEditModal(missionId) {
-    const mission = myMissions.find(m => m.id === missionId);
+    // Chercher d'abord dans myMissions, puis dans missions
+    let mission = myMissions.find(m => m.id === missionId);
+    if (!mission) {
+        mission = missions.find(m => m.id === missionId);
+    }
+    
     if (!mission) return;
 
     document.getElementById('modalTitle').textContent = 'Modifier la mission';
@@ -432,18 +371,24 @@ function saveMission(e) {
         agency,
         objective,
         launchDate: date,
-        image: image || getPlaceholderImage(name)
+        image: image 
     };
 
-    // Ajouter ou mettre à jour
     if (currentEditId) {
-        // Mettre à jour
-        const index = myMissions.findIndex(m => m.id === currentEditId);
+        // Mettre à jour une mission existante
+        // Chercher d'abord dans myMissions
+        let index = myMissions.findIndex(m => m.id === currentEditId);
         if (index !== -1) {
             myMissions[index] = mission;
+        } else {
+            // Si pas trouvé dans myMissions, chercher dans missions
+            index = missions.findIndex(m => m.id === currentEditId);
+            if (index !== -1) {
+                missions[index] = mission;
+            }
         }
     } else {
-        // Ajouter
+        // Ajouter une nouvelle mission à myMissions
         myMissions.push(mission);
     }
 
@@ -452,11 +397,7 @@ function saveMission(e) {
 
     // Fermer le modal et re-rendre
     closeModal();
-
-    // Si on est dans l'onglet "Mes missions", re-rendre
-    if (currentTab === 'notreMission') {
-        renderMissions();
-    }
+    AfficherMissions();
 }
 
 // Supprimer une mission
@@ -470,20 +411,34 @@ function deleteMission(missionId) {
     if (favIndex !== -1) {
         favorites.splice(favIndex, 1);
         localStorage.setItem('all-fav', JSON.stringify(favorites));
+        favCount();
+        updateFav();
     }
 
-    // Retirer de mes missions
-    myMissions = myMissions.filter(m => m.id !== missionId);
+    // Retirer de myMissions d'abord
+    let missionDeleted = false;
+    myMissions = myMissions.filter(m => {
+        if (m.id === missionId) {
+            missionDeleted = true;
+            return false;
+        }
+        return true;
+    });
+
+    // Si pas trouvé dans myMissions, retirer de missions
+    if (!missionDeleted) {
+        missions = missions.filter(m => m.id !== missionId);
+    }
+
+    // Sauvegarder
     localStorage.setItem('myMissions', JSON.stringify(myMissions));
 
     // Re-rendre
-    if (currentTab === 'notreMission') {
-        renderMissions();
-    }
+    AfficherMissions();
 }
 
 // Remplir le filtre d'années
-function populateYearFilter() {
+function YearFilter() {
     const yearFilter = document.getElementById('yearFilter');
 
     // Obtenir toutes les années uniques des missions
@@ -501,7 +456,103 @@ function populateYearFilter() {
     });
 }
 
-// Obtenir une image de remplacement
-// function getPlaceholderImage(missionName) {
-//     return `https://via.placeholder.com/400x200/1f2937/15ff00?text=${encodeURIComponent(missionName)}`;
-// }
+
+// Initialiser la sidebar des favoris
+function initFav() {
+    const floatingBtn = document.getElementById('floatingFavoritesBtn');
+    const closeBtn = document.getElementById('closeSidebar');
+    const sidebar = document.getElementById('favoritesSidebar');
+
+    // Ouvrir la sidebar
+    floatingBtn.addEventListener('click', function() {
+        sidebar.classList.add('open');
+        updateFav();
+    });
+
+    // Fermer la sidebar
+    closeBtn.addEventListener('click', function() {
+        sidebar.classList.remove('open');
+    });
+
+    // Fermer la sidebar en cliquant à l'extérieur
+    document.addEventListener('click', function(event) {
+        if (!sidebar.contains(event.target) && !floatingBtn.contains(event.target) && sidebar.classList.contains('open')) {
+            sidebar.classList.remove('open');
+        }
+    });
+}
+
+// Mettre à jour le compteur de favoris
+function favCount() {
+    const countElement = document.getElementById('favoritesCount');
+    countElement.textContent = favorites.length;
+}
+
+// Mettre à jour le contenu de la sidebar des favoris
+function updateFav() {
+    const favoritesContent = document.getElementById('favoritesContent');
+    
+    // Obtenir les missions favorites depuis toutes les missions
+    const allMissions = [...missions, ...myMissions];
+    const favoriteMissions = allMissions.filter(mission => favorites.includes(mission.id));
+    
+    if (favoriteMissions.length === 0) {
+        favoritesContent.innerHTML = '<p class="no-favorites-message">Aucune mission favorite pour le moment</p>';
+        return;
+    }
+
+    let html = '';
+    favoriteMissions.forEach(mission => {
+        const launchDate = new Date(mission.launchDate);
+        const formattedDate = launchDate.toLocaleDateString('fr-FR', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+
+        html += `
+            <div class="favorite-mission-card" data-id="${mission.id}">
+                <img class="favorite-mission-image" src="${mission.image}" alt="${mission.name}">
+                <div class="favorite-mission-info">
+                    <h4 class="favorite-mission-title">${mission.name}</h4>
+                    <p class="favorite-mission-agency">${mission.agency}</p>
+                    <p class="favorite-mission-date">${formattedDate}</p>
+                </div>
+                <button class="remove-favorite-btn" data-id="${mission.id}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </div>
+        `;
+    });
+
+    favoritesContent.innerHTML = html;
+
+    // Ajouter les écouteurs d'événements pour les boutons de suppression
+    document.querySelectorAll('.remove-favorite-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const missionId = parseInt(this.dataset.id);
+            deleteFav(missionId);
+        });
+    });
+}
+
+// Retirer une mission des favoris depuis la sidebar
+function deleteFav(missionId) {
+    const index = favorites.indexOf(missionId);
+    if (index !== -1) {
+        favorites.splice(index, 1);
+        localStorage.setItem('all-fav', JSON.stringify(favorites));
+        
+        favCount();
+        updateFav();
+        
+        // Mettre à jour les boutons favoris dans la grille principale
+        const favoriteBtn = document.querySelector(`.favorite-btn[data-id="${missionId}"]`);
+        if (favoriteBtn) {
+            favoriteBtn.classList.remove('active');
+            favoriteBtn.innerHTML = '🤍';
+        }
+    }
+}
