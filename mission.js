@@ -85,7 +85,6 @@ let favorites = JSON.parse(localStorage.getItem('all-fav')) || [];
 let myMissions = JSON.parse(localStorage.getItem('myMissions')) || [];
 let currentEditId = null;
 
-// Événement de chargement de la page
 window.addEventListener('load', function () {
     Filtrage();
     AfficherMissions();
@@ -98,7 +97,6 @@ function Filtrage() {
     document.getElementById('missionSearch').addEventListener('input', filterMissions);
     document.getElementById('agencyFilter').addEventListener('change', filterMissions);
     document.getElementById('yearFilter').addEventListener('change', filterMissions);
-
     document.getElementById('ajout').addEventListener('click', openAddModal);
     document.getElementById('closeModal').addEventListener('click', closeModal);
     document.getElementById('cancelBtn').addEventListener('click', closeModal);
@@ -109,10 +107,8 @@ function AfficherMissions(MissionFiltrer = null) {
     const missionGrid = document.getElementById('missionGrid');
     const Missions_vide = document.getElementById('Missions_vide');
 
-    // TOUTES les missions sont affichées ensemble
     let missionsToAficher = [...missions, ...myMissions];
 
-    // Appliquer les filtres si fournis
     if (MissionFiltrer) {
         missionsToAficher = MissionFiltrer;
     }
@@ -133,14 +129,12 @@ function AfficherMissions(MissionFiltrer = null) {
     });
 }
 
-// Création d'une carte de mission
 function createMissionCard(mission) {
     const card = document.createElement('div');
     card.className = 'mission-card';
     card.dataset.id = mission.id;
 
     const isFavorite = favorites.includes(mission.id);
-    // Toutes les missions peuvent être modifiées/supprimées
     const isEditable = true;
 
     const launchDate = new Date(mission.launchDate);
@@ -170,7 +164,6 @@ function createMissionCard(mission) {
         </div>
     `;
 
-    // Ajouter les écouteurs d'événements
     const favoriteBtn = card.querySelector('.favorite-btn');
     favoriteBtn.addEventListener('click', toggleFavorite);
 
@@ -188,7 +181,6 @@ function createMissionCard(mission) {
     return card;
 }
 
-// Filtrer les missions
 function filterMissions() {
     const barRecherche = document.getElementById('missionSearch').value.toLowerCase();
     const agencyFilter = document.getElementById('agencyFilter').value;
@@ -196,7 +188,6 @@ function filterMissions() {
 
     let MissionFiltrer = [...missions, ...myMissions];
 
-    // Filtrer par recherche
     if (barRecherche) {
         MissionFiltrer = MissionFiltrer.filter(mission =>
             mission.name.toLowerCase().includes(barRecherche) ||
@@ -205,14 +196,12 @@ function filterMissions() {
         );
     }
 
-    // Filtrer par agence
     if (agencyFilter) {
         MissionFiltrer = MissionFiltrer.filter(mission =>
             mission.agency.includes(agencyFilter)
         );
     }
 
-    // Filtrer par année
     if (yearFilter) {
         MissionFiltrer = MissionFiltrer.filter(mission => {
             const missionYear = new Date(mission.launchDate).getFullYear().toString();
@@ -223,7 +212,6 @@ function filterMissions() {
     AfficherMissions(MissionFiltrer);
 }
 
-// Basculer le statut favori
 function toggleFavorite(e) {
     const missionId = parseInt(e.target.dataset.id);
     const index = favorites.indexOf(missionId);
@@ -238,21 +226,17 @@ function toggleFavorite(e) {
         e.target.innerHTML = '🤍';
     }
 
-    // Sauvegarder dans le localStorage
     localStorage.setItem('all-fav', JSON.stringify(favorites));
 
-    // Mettre à jour le compteur et la sidebar
     favCount();
     updateFav();
 }
 
-// Ouvrir le modal d'ajout
 function openAddModal() {
     document.getElementById('modalTitle').textContent = 'Ajouter une mission';
     document.getElementById('missionForm').reset();
     document.getElementById('missionId').value = '';
 
-    // Réinitialiser les erreurs
     document.querySelectorAll('.error-message').forEach(error => {
         error.style.display = 'none';
     });
@@ -263,9 +247,7 @@ function openAddModal() {
     document.getElementById('missionModal').style.display = 'flex';
 }
 
-// Ouvrir le modal d'édition
 function openEditModal(missionId) {
-    // Chercher d'abord dans myMissions, puis dans missions
     let mission = myMissions.find(m => m.id === missionId);
     if (!mission) {
         mission = missions.find(m => m.id === missionId);
@@ -283,7 +265,6 @@ function openEditModal(missionId) {
 
     currentEditId = missionId;
 
-    // Réinitialiser les erreurs
     document.querySelectorAll('.error-message').forEach(error => {
         error.style.display = 'none';
     });
@@ -294,16 +275,13 @@ function openEditModal(missionId) {
     document.getElementById('missionModal').style.display = 'flex';
 }
 
-// Fermer le modal
 function closeModal() {
     document.getElementById('missionModal').style.display = 'none';
 }
 
-// Sauvegarder une mission
 function saveMission(e) {
     e.preventDefault();
 
-    // Validation
     const name = document.getElementById('missionName').value.trim();
     const agency = document.getElementById('missionAgency').value;
     const objective = document.getElementById('missionObjective').value.trim();
@@ -312,7 +290,6 @@ function saveMission(e) {
 
     let isValid = true;
 
-    // Valider le nom
     if (!name) {
         document.getElementById('nameError').style.display = 'block';
         document.getElementById('missionName').classList.add('error');
@@ -322,7 +299,6 @@ function saveMission(e) {
         document.getElementById('missionName').classList.remove('error');
     }
 
-    // Valider l'agence
     if (!agency) {
         document.getElementById('agencyError').style.display = 'block';
         document.getElementById('missionAgency').classList.add('error');
@@ -332,7 +308,6 @@ function saveMission(e) {
         document.getElementById('missionAgency').classList.remove('error');
     }
 
-    // Valider l'objectif
     if (!objective) {
         document.getElementById('objectiveError').style.display = 'block';
         document.getElementById('missionObjective').classList.add('error');
@@ -342,7 +317,6 @@ function saveMission(e) {
         document.getElementById('missionObjective').classList.remove('error');
     }
 
-    // Valider la date
     if (!date) {
         document.getElementById('dateError').style.display = 'block';
         document.getElementById('missionDate').classList.add('error');
@@ -352,7 +326,6 @@ function saveMission(e) {
         document.getElementById('missionDate').classList.remove('error');
     }
 
-    // Valider l'image
     if (!image) {
         document.getElementById('imageError').style.display = 'block';
         document.getElementById('missionImage').classList.add('error');
@@ -364,7 +337,6 @@ function saveMission(e) {
 
     if (!isValid) return;
 
-    // Créer l'objet mission
     const mission = {
         id: currentEditId || Date.now(),
         name,
@@ -375,38 +347,30 @@ function saveMission(e) {
     };
 
     if (currentEditId) {
-        // Mettre à jour une mission existante
-        // Chercher d'abord dans myMissions
         let index = myMissions.findIndex(m => m.id === currentEditId);
         if (index !== -1) {
             myMissions[index] = mission;
         } else {
-            // Si pas trouvé dans myMissions, chercher dans missions
             index = missions.findIndex(m => m.id === currentEditId);
             if (index !== -1) {
                 missions[index] = mission;
             }
         }
     } else {
-        // Ajouter une nouvelle mission à myMissions
         myMissions.push(mission);
     }
 
-    // Sauvegarder dans le localStorage
     localStorage.setItem('myMissions', JSON.stringify(myMissions));
 
-    // Fermer le modal et re-rendre
     closeModal();
     AfficherMissions();
 }
 
-// Supprimer une mission
 function deleteMission(missionId) {
     if (!confirm('Êtes-vous sûr de vouloir supprimer cette mission ?')) {
         return;
     }
 
-    // Retirer des favoris si présent
     const favIndex = favorites.indexOf(missionId);
     if (favIndex !== -1) {
         favorites.splice(favIndex, 1);
@@ -415,7 +379,6 @@ function deleteMission(missionId) {
         updateFav();
     }
 
-    // Retirer de myMissions d'abord
     let missionDeleted = false;
     myMissions = myMissions.filter(m => {
         if (m.id === missionId) {
@@ -425,29 +388,23 @@ function deleteMission(missionId) {
         return true;
     });
 
-    // Si pas trouvé dans myMissions, retirer de missions
     if (!missionDeleted) {
         missions = missions.filter(m => m.id !== missionId);
     }
 
-    // Sauvegarder
     localStorage.setItem('myMissions', JSON.stringify(myMissions));
 
-    // Re-rendre
     AfficherMissions();
 }
 
-// Remplir le filtre d'années
 function YearFilter() {
     const yearFilter = document.getElementById('yearFilter');
 
-    // Obtenir toutes les années uniques des missions
     const allYears = [...missions, ...myMissions]
         .map(mission => new Date(mission.launchDate).getFullYear())
         .filter((year, index, self) => self.indexOf(year) === index)
         .sort((a, b) => b - a);
 
-    // Ajouter les options
     allYears.forEach(year => {
         const option = document.createElement('option');
         option.value = year;
@@ -457,24 +414,20 @@ function YearFilter() {
 }
 
 
-// Initialiser la sidebar des favoris
 function initFav() {
     const floatingBtn = document.getElementById('floatingFavoritesBtn');
     const closeBtn = document.getElementById('closeSidebar');
     const sidebar = document.getElementById('favoritesSidebar');
 
-    // Ouvrir la sidebar
     floatingBtn.addEventListener('click', function() {
         sidebar.classList.add('open');
         updateFav();
     });
 
-    // Fermer la sidebar
     closeBtn.addEventListener('click', function() {
         sidebar.classList.remove('open');
     });
 
-    // Fermer la sidebar en cliquant à l'extérieur
     document.addEventListener('click', function(event) {
         if (!sidebar.contains(event.target) && !floatingBtn.contains(event.target) && sidebar.classList.contains('open')) {
             sidebar.classList.remove('open');
@@ -482,17 +435,16 @@ function initFav() {
     });
 }
 
-// Mettre à jour le compteur de favoris
+
 function favCount() {
     const countElement = document.getElementById('favoritesCount');
     countElement.textContent = favorites.length;
 }
 
-// Mettre à jour le contenu de la sidebar des favoris
+
 function updateFav() {
     const favoritesContent = document.getElementById('favoritesContent');
     
-    // Obtenir les missions favorites depuis toutes les missions
     const allMissions = [...missions, ...myMissions];
     const favoriteMissions = allMissions.filter(mission => favorites.includes(mission.id));
     
@@ -519,7 +471,6 @@ function updateFav() {
                     <p class="favorite-mission-date">${formattedDate}</p>
                 </div>
                 <button class="remove-favorite-btn" data-id="${mission.id}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
                     </svg>
                 </button>
@@ -529,7 +480,6 @@ function updateFav() {
 
     favoritesContent.innerHTML = html;
 
-    // Ajouter les écouteurs d'événements pour les boutons de suppression
     document.querySelectorAll('.remove-favorite-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const missionId = parseInt(this.dataset.id);
@@ -538,7 +488,6 @@ function updateFav() {
     });
 }
 
-// Retirer une mission des favoris depuis la sidebar
 function deleteFav(missionId) {
     const index = favorites.indexOf(missionId);
     if (index !== -1) {
@@ -548,7 +497,6 @@ function deleteFav(missionId) {
         favCount();
         updateFav();
         
-        // Mettre à jour les boutons favoris dans la grille principale
         const favoriteBtn = document.querySelector(`.favorite-btn[data-id="${missionId}"]`);
         if (favoriteBtn) {
             favoriteBtn.classList.remove('active');
